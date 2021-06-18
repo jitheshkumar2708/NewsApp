@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.assignment.mvvm.news.NewsViewModel" />
+    </data>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/pullToRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/grey_background">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/black"
+                android:gravity="center"
+                android:minHeight="?attr/actionBarSize"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_slab_bold"
+                    android:gravity="center_horizontal"
+                    android:text="@string/title_headlines"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_extra_large" />
+            </androidx.appcompat.widget.Toolbar>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleLatestNews"
+                visible="@{viewModel.latestNews.isSuccess}"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/size_medium"
+                android:layout_marginEnd="@dimen/size_small"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar"
+                app:layout_constraintVertical_bias="0"
+                tools:listitem="@layout/news_list_item" />
+
+            <TextView
+                android:id="@+id/txtError"
+                visible="@{viewModel.latestNews.isError}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_slab"
+                android:gravity="center_horizontal"
+                android:padding="@dimen/size_medium"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_medium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                visible="@{viewModel.latestNews.isError}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:onClick="@{(v) -> viewModel.fetchLatestNews()}"
+                android:paddingStart="@dimen/size_large"
+                android:paddingTop="@dimen/size_small"
+                android:paddingEnd="@dimen/size_large"
+                android:paddingBottom="@dimen/size_small"
+                android:text="@string/retry"
+                android:textSize="@dimen/font_medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtError" />
+
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_view_container"
+                visible="@{viewModel.latestNews.isLoading}"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/size_medium"
+                android:layout_marginEnd="@dimen/size_small"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar"
+                app:layout_constraintVertical_bias="0">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/placeholder_latest_news_item" />
+
+                    <include layout="@layout/placeholder_latest_news_item" />
+
+                    <include layout="@layout/placeholder_latest_news_item" />
+
+                    <include layout="@layout/placeholder_latest_news_item" />
+
+                    <include layout="@layout/placeholder_latest_news_item" />
+
+                </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</layout>
