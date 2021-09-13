@@ -117,6 +117,7 @@ class NewsRepositoryImplTest {
     @Test
     fun `if there is no record in DB null should be returned`() {
 
+
     }
 
 

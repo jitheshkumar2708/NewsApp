@@ -30,6 +30,7 @@
                 android:id="@+id/image"
                 imageUrl="@{item.urlToImage}"
                 android:layout_width="match_parent"
+                android:scaleType="fitXY"
                 android:layout_height="match_parent"
                 android:contentDescription="@null" />
             <!--
@@ -56,9 +57,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/size_large"
                 android:layout_marginBottom="@dimen/size_small"
+                android:text="@{item.publishedAt}"
                 android:fontFamily="@font/roboto_slab_bold"
                 android:textColor="@color/text_color_grey"
                 android:textSize="@dimen/font_small"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/txtSource"
                 tools:text="CNN" />

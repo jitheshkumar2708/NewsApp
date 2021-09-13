@@ -17,6 +17,7 @@ class NewsToEntityMapper @Inject constructor() : Mapper<News, NewsEntity> {
             urlToImage = model.thumbnailUrl,
             publishedAt = model.publishedAt,
             content = model.content
+
         )
     }
 
